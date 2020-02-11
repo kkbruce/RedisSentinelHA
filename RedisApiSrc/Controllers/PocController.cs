@@ -4,11 +4,11 @@ using System;
 
 namespace RedisApiSrc.Controllers
 {
-        [Route("poc/[action]")]
+    [Route("poc/[action]")]
     [ApiController]
     public class PocController : ControllerBase
     {
-                /// <summary>
+        /// <summary>
         /// Write data to Master.
         /// </summary>
         /// <returns>string</returns>
