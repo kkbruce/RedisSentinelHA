@@ -1,0 +1,12 @@
+# escape=`
+
+FROM  mcr.microsoft.com/windows/nanoserver:1909
+LABEL maintainer="kkbruce"
+
+RUN mkdir c:\redis_data
+COPY Redis /Redis
+ADD redis.docker-slave.conf /Redis
+WORKDIR /Redis
+EXPOSE 6380
+
+CMD ["redis-server.exe", "redis.docker-slave.conf"]
