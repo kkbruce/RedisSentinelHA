@@ -39,10 +39,16 @@ services:
       - master
       - slave
 
+# networks:
+#   redis-net:
+#     external: true
+#     name: redis-net
+
 networks:
   redis-net:
-    external: true
-    name: redis-net
-
+    ipam:
+      driver: windows
+      config: 
+        - subnet: "10.10.10.0/24"
 volumes:
   redis-data:
