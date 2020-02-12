@@ -13,7 +13,8 @@ namespace RedisApiSrc
         {
             ConfigurationOptions options = new ConfigurationOptions
             {
-                EndPoints ={{ "127.0.0.1", 6379 },{ "127.0.0.1", 6380 }}
+                EndPoints ={{ "127.0.0.1", 6379 },{ "127.0.0.1", 6380 }},
+                DefaultDatabase = 10
             };
             Connection = new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(options));
         }
@@ -30,7 +31,8 @@ namespace RedisApiSrc
         /// </summary>
         static RedisFactory6380()
         {
-            var connectionString = "127.0.0.1:6380";
+            //var connectionString = "127.0.0.1:6379,127.0.0.1:6380,DefaultDatabase=10";
+            var connectionString = "127.0.0.1:6380,DefaultDatabase=10";
             var options = ConfigurationOptions.Parse(connectionString);
             Connection = new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(options));
         }

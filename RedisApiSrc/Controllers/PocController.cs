@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using StackExchange.Redis;
-using System;
 
 namespace RedisApiSrc.Controllers
 {
