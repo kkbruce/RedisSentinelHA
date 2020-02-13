@@ -48,7 +48,7 @@ networks:
   redis-net:
     ipam:
       driver: windows
-      config: 
+      config:
         - subnet: "10.10.10.0/24"
 volumes:
   redis-data:
