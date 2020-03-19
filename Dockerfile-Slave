@@ -1,12 +1,29 @@
 # escape=`
 
-FROM  mcr.microsoft.com/windows/nanoserver:1909
-LABEL maintainer="kkbruce"
+# Offline
+# FROM  mcr.microsoft.com/windows/nanoserver:1909
+# LABEL maintainer="kkbruce"
+
+# RUN mkdir c:\redis_data
+# COPY Redis /Redis
+# ADD redis.docker-slave.conf /Redis
+# WORKDIR /Redis
+# EXPOSE 6380
+
+# CMD ["redis-server.exe", "redis.docker-slave.conf"]
+
+# Online
+FROM mcr.microsoft.com/powershell:nanoserver-1909
+LABEL maintainer="kkbruce" Version="4.0.14.2"
 
 RUN mkdir c:\redis_data
-COPY Redis /Redis
-ADD redis.docker-slave.conf /Redis
-WORKDIR /Redis
+RUN pwsh -Command `
+	$ErrorActionPreference = 'Stop'; `
+	Invoke-WebRequest -Method Get -Uri https://github.com/tporadowski/redis/releases/download/v4.0.14.2/Redis-x64-4.0.14.2.zip -OutFile c:\redis.zip ; `
+	Expand-Archive -Path c:\redis.zip -DestinationPath c:\redis ; `
+	Remove-Item c:\redis.zip -Force
+ADD redis.docker-slave.conf /redis
+WORKDIR /redis
 EXPOSE 6380
 
 CMD ["redis-server.exe", "redis.docker-slave.conf"]
