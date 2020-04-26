@@ -1,1 +1,5 @@
 RedisApiSrc
+build.cmd
+README.md
+LICENSE
+docker-compose.yml
