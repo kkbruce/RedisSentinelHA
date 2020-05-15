@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   master:
-    image: "kkbruce/redis:master-4.0.14.2-aof-nanoserver-1909"
+    image: "kkbruce/redis:master-5.0.9-aof-nanoserver-1909"
     ports:
       - 6379:6379
     hostname: redis-master
@@ -10,10 +10,10 @@ services:
     networks:
       redis-net:
         ipv4_address: 10.10.10.10
-    restart: unless-stopped
+    restart: always
 
   slave:
-    image: "kkbruce/redis:slave-4.0.14.2-aof-nanoserver-1909"
+    image: "kkbruce/redis:slave-5.0.9-aof-nanoserver-1909"
     ports:
       - 6380:6380
     hostname: redis-slave
@@ -21,12 +21,12 @@ services:
       - redis-data:c:\redis_data
     networks:
       - redis-net
-    restart: unless-stopped
+    restart: always
     depends_on:
       - master
 
   sentinel:
-    image: "kkbruce/redis:sentinel-4.0.14.2-aof-nanoserver-1909"
+    image: "kkbruce/redis:sentinel-5.0.9-aof-nanoserver-1909"
     ports:
       - 26379:26379
     hostname: redis-sentinel
@@ -34,7 +34,7 @@ services:
       - redis-data:c:\redis_data
     networks:
       - redis-net
-    restart: unless-stopped
+    restart: always
     depends_on:
       - master
       - slave
