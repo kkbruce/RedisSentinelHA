@@ -1,7 +1,7 @@
 # escape=`
 
 # Offline
-# FROM  mcr.microsoft.com/windows/nanoserver:1909
+# FROM  mcr.microsoft.com/windows/nanoserver:2004
 # LABEL maintainer="kkbruce"
 
 # RUN mkdir c:\redis_data
@@ -13,13 +13,14 @@
 # CMD ["redis-server.exe", "redis.docker-sentinel.conf", "--sentinel"]
 
 # Online
-FROM mcr.microsoft.com/powershell:nanoserver-1909
-LABEL maintainer="kkbruce" Version="5.0.9"
+FROM mcr.microsoft.com/powershell:nanoserver-2004
+LABEL maintainer="kkbruce" Version="4.0.14.2"
 
 RUN mkdir c:\redis_data
+# zip source: https://github.com/tporadowski/redis
 RUN pwsh -Command `
 	$ErrorActionPreference = 'Stop'; `
-	Invoke-WebRequest -Method Get -Uri https://github.com/tporadowski/redis/releases/download/v5.0.9/Redis-x64-5.0.9.zip -OutFile c:\redis.zip ; `
+	Invoke-WebRequest -Method Get -Uri https://github.com/tporadowski/redis/releases/download/v4.0.14.2/Redis-x64-4.0.14.2.zip -OutFile c:\redis.zip ; `
 	Expand-Archive -Path c:\redis.zip -DestinationPath c:\redis ; `
 	Remove-Item c:\redis.zip -Force
 ADD redis.docker-sentinel.conf /redis
